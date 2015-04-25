@@ -7,3 +7,13 @@ function changeImg(){
 	document.getElementById("img").src = imageURL;
 	restart();
 }
+
+function clickImg(image){
+	// remove thumbnail div
+	document.getElementById("imageThumbs").remove();
+	// change selector value
+	document.getElementById('imgSelector').value = image;
+	changeImg();
+	// display image selector
+    document.getElementById("imgSelector").style.visibility = 'visible';
+}

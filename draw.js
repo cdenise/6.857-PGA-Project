@@ -14,6 +14,7 @@ var canvas, ctx = false,
     gestures = [],
     gestureStrings = [],
     mouseDown = false,
+    current = 'introduction',
     saveString;
 
 var color = "gray",
@@ -94,7 +95,7 @@ function init() {
 function processTouch(res, e) {
     var source = document.getElementById("img").src;
     source = source.split("/").pop();
-    if (source == "instructions1.jpg" || source == "instructions2.jpg"){
+    if (source == "instructions1.jpg" || source == "instructions2.jpg" || source == "backgound.jpg"){
         return
     }
     if (finished){
@@ -365,9 +366,24 @@ function upload(){
         })(gestures, gestureStrings);
         endExperiment2();
     }
-
-
 }
+
+function startExperiment1(){
+    if (current == "introduction"){
+        // show experiment 1 instructions
+        var imageURL = "images/" + 'instructions1' + ".jpg";
+        document.getElementById("img").src = imageURL;
+        current = "instructions1";
+    } else{
+        // show thumbnails
+        var imageURL = "images/" + 'background' + ".jpg";
+        document.getElementById("img").src = imageURL;
+        document.getElementById("imageThumbs").style.visibility = 'visible';
+        // remove next button
+        document.getElementById("nextButton").remove();
+    } 
+}
+
 
 function startExperiment2(){
     // remove start button
@@ -406,5 +422,5 @@ function endExperiment2(){
     document.getElementById("container").remove();
     var body = document.getElementsByTagName("body")[0];
     body.style.overflow = 'visible';
-    body.innerHTML = '<center><iframe id="survey" src="https://docs.google.com/forms/d/1sMUEvdUJfnPY63zt-NS8_7J5vA602dedm8O9eKs_6wQ/viewform?entry.367668509=' + userID + '&entry.1622101868embedded=true" width="760" height="1750" frameborder="0" marginheight="0" marginwidth="0">Loading...</iframe></center>';
+    body.innerHTML = '<center><iframe id="survey" src="https://docs.google.com/forms/d/1sMUEvdUJfnPY63zt-NS8_7J5vA602dedm8O9eKs_6wQ/viewform?entry.367668509=' + userID + '&entry.1622101868embedded=true" width="760" height="1830" frameborder="0" marginheight="0" marginwidth="0">Loading...</iframe></center>';
 }
