@@ -20,11 +20,12 @@ var color = "gray",
     radius = 5,
     offset = 12,
     expNum = 1,
+    userID,
     exp1_image,
     exp2_image;
 
 var comple_image = "waldo",
-    simple_image = "landscape";
+    simple_image = "animal";
 
 function init() {
     // update gesture # label
@@ -310,12 +311,13 @@ function upload(){
         exp1_image = document.getElementById("imgSelector").value;
         (function (gestures, gestureStrings){
             // save to database
-            myFirebaseRef.push({
+            var idRef = myFirebaseRef.push({
                 experiment: 1,
                 image: exp1_image,
                 gestures: gestures,
                 desciption: gestureStrings
             });
+            userID = idRef.path.o[0];
         })(gestures, gestureStrings);
         // reset values and canvas
         restart();
@@ -343,7 +345,8 @@ function upload(){
                 experiment: 2,
                 image: comple_image,
                 gestures: gestures,
-                desciption: gestureStrings
+                desciption: gestureStrings,
+                userID: userID
             });
         })(gestures, gestureStrings);
         showSimpleImage();
@@ -356,18 +359,13 @@ function upload(){
                 experiment: 2,
                 image: simple_image,
                 gestures: gestures,
-                desciption: gestureStrings
+                desciption: gestureStrings,
+                userID: userID
             });
         })(gestures, gestureStrings);
         endExperiment2();
     }
 
-    
-    
-
-    // var uploadButton = document.getElementById("uploadButton");
-    // uploadButton.innerHTML = "Uploaded"
-    // uploadButton.disabled = true;
 
 }
 
@@ -408,5 +406,5 @@ function endExperiment2(){
     document.getElementById("container").remove();
     var body = document.getElementsByTagName("body")[0];
     body.style.overflow = 'visible';
-    body.innerHTML = '<center><iframe id="survey" src="https://docs.google.com/forms/d/1sMUEvdUJfnPY63zt-NS8_7J5vA602dedm8O9eKs_6wQ/viewform?embedded=true" width="760" height="1750" frameborder="0" marginheight="0" marginwidth="0">Loading...</iframe></center>';
+    body.innerHTML = '<center><iframe id="survey" src="https://docs.google.com/forms/d/1sMUEvdUJfnPY63zt-NS8_7J5vA602dedm8O9eKs_6wQ/viewform?entry.367668509=' + userID + '&entry.1622101868embedded=true" width="760" height="1750" frameborder="0" marginheight="0" marginwidth="0">Loading...</iframe></center>';
 }
