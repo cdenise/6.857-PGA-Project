@@ -95,7 +95,7 @@ function init() {
 function processTouch(res, e) {
     var source = document.getElementById("img").src;
     source = source.split("/").pop();
-    if (source == "instructions1.jpg" || source == "instructions2.jpg" || source == "backgound.jpg"){
+    if (source == "instructions1.jpg" || source == "instructions2.jpg" || source == "backgound.jpg" || source == "introduction.jpg"){
         return
     }
     if (finished){
@@ -158,6 +158,19 @@ function processTouch(res, e) {
     }
 }
 
+function returnOrientation(x1,x2,y1,y2) {
+    //Returns true if counter-clockwise; false if clockwise.
+    dot = x1*x2 + y1*y2;
+    det = x1*y2 - y1*x2; 
+    angle = Math.atan2(det, dot);
+    if (angle > 0) {
+        return true;
+    }
+    else{
+        return false;
+    }
+    //console.log(angle);
+}
 
 
 function draw() {
@@ -211,6 +224,7 @@ function save() {
             updateGestureLabel("Done");
             // remove save button
             var elem = document.getElementById("saveButton");
+            var restartButton = document.getElementById("restartButton");
             var parent = elem.parentNode;
             parent.removeChild(elem);
             // add display gestures button
@@ -218,7 +232,9 @@ function save() {
             elem1.setAttribute("onclick", "displayGestures()");
             elem1.innerHTML = "Display";
             elem1.id = "displayButton";
-            parent.appendChild(elem1);
+            parent.insertBefore(elem1, restartButton);
+
+            // parent.appendChild(elem1);
             // add upload gestures button
             var elem2 = document.createElement("button");
             elem2.id = "uploadButton";
@@ -302,6 +318,8 @@ function displayGestures(){
             var width = gestures[i][6];
             drawLine(x1, y1, x2, y2, col, width);
         }
+        //disable display button
+        document.getElementById("displayButton").disabled = true;
     }
 }
 
@@ -422,5 +440,5 @@ function endExperiment2(){
     document.getElementById("container").remove();
     var body = document.getElementsByTagName("body")[0];
     body.style.overflow = 'visible';
-    body.innerHTML = '<center><iframe id="survey" src="https://docs.google.com/forms/d/1sMUEvdUJfnPY63zt-NS8_7J5vA602dedm8O9eKs_6wQ/viewform?entry.367668509=' + userID + '&entry.1622101868embedded=true" width="760" height="1830" frameborder="0" marginheight="0" marginwidth="0">Loading...</iframe></center>';
+    body.innerHTML = '<center><iframe id="survey" src="https://docs.google.com/forms/d/1sMUEvdUJfnPY63zt-NS8_7J5vA602dedm8O9eKs_6wQ/viewform?entry.367668509=' + userID + '&entry.1622101868embedded=true" width="760" height="600" frameborder="0" marginheight="0" marginwidth="0">Loading...</iframe></center>';
 }
