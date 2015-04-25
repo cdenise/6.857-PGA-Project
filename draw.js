@@ -17,8 +17,14 @@ var canvas, ctx = false,
     saveString;
 
 var color = "gray",
-    radius = 5;
-    offset = 12;
+    radius = 5,
+    offset = 12,
+    expNum = 1,
+    exp1_image,
+    exp2_image;
+
+var comple_image = "waldo",
+    simple_image = "landscape";
 
 function init() {
     // update gesture # label
@@ -85,7 +91,12 @@ function init() {
 }
 
 function processTouch(res, e) {
-    if (document.getElementById("imgSelector").value == "instructions"){
+    var source = document.getElementById("img").src;
+    source = source.split("/").pop();
+    if (source == "instructions1.jpg" || source == "instructions2.jpg"){
+        return
+    }
+    if (finished){
         return;
     }
     if (res == 'start') {
@@ -201,16 +212,16 @@ function save() {
             var parent = elem.parentNode;
             parent.removeChild(elem);
             // add display gestures button
-            elem1 = document.createElement("button");
+            var elem1 = document.createElement("button");
             elem1.setAttribute("onclick", "displayGestures()");
             elem1.innerHTML = "Display";
             elem1.id = "displayButton";
             parent.appendChild(elem1);
             // add upload gestures button
-            elem2 = document.createElement("button");
+            var elem2 = document.createElement("button");
             elem2.id = "uploadButton";
             elem2.setAttribute("onclick", "upload()");
-            elem2.innerHTML = "Upload";
+            elem2.innerHTML = "Next";
             parent.appendChild(elem2);
         } else{
             // ask for next gesture
@@ -293,13 +304,109 @@ function displayGestures(){
 }
 
 function upload(){
-    myFirebaseRef.push({
-        image: document.getElementById("imgSelector").value,
-        gestures: gestures,
-        desciption: gestureStrings
-    });
-    var uploadButton = document.getElementById("uploadButton");
-    uploadButton.innerHTML = "Uploaded"
-    uploadButton.disabled = true;
+    // experiment 1
+    if (expNum == 1){
+        expNum ++;
+        exp1_image = document.getElementById("imgSelector").value;
+        (function (gestures, gestureStrings){
+            // save to database
+            myFirebaseRef.push({
+                experiment: 1,
+                image: exp1_image,
+                gestures: gestures,
+                desciption: gestureStrings
+            });
+        })(gestures, gestureStrings);
+        // reset values and canvas
+        restart();
+        // hide sidebar
+        document.getElementById("sideBar").style.visibility = 'hidden';
+        // remove image selector
+        document.getElementById("imgSelector").remove();
+        // display experiment 2 instructions
+        var imageURL = "images/instructions2.jpg";
+        document.getElementById("img").src = imageURL;
+        // add start button
+        var parent = document.getElementById("selectionDiv");
+        // add save button
+        var start = document.createElement("button");
+        start.setAttribute("onclick", "startExperiment2()");
+        start.innerHTML = "Start";
+        start.id = "startButton";
+        parent.appendChild(start);
+    } 
+    // experiment 2 - complex
+    else if (exp2_image == comple_image){
+        (function (gestures, gestureStrings){
+            // save to database
+            myFirebaseRef.push({
+                experiment: 2,
+                image: comple_image,
+                gestures: gestures,
+                desciption: gestureStrings
+            });
+        })(gestures, gestureStrings);
+        showSimpleImage();
+    } 
+    // experiment 2 - simple
+    else{
+        (function (gestures, gestureStrings){
+            // save to database
+            myFirebaseRef.push({
+                experiment: 2,
+                image: simple_image,
+                gestures: gestures,
+                desciption: gestureStrings
+            });
+        })(gestures, gestureStrings);
+        endExperiment2();
+    }
 
+    
+    
+
+    // var uploadButton = document.getElementById("uploadButton");
+    // uploadButton.innerHTML = "Uploaded"
+    // uploadButton.disabled = true;
+
+}
+
+function startExperiment2(){
+    // remove start button
+    document.getElementById("startButton").remove();
+    // show side bar
+    document.getElementById("sideBar").style.visibility = 'visible';
+
+    if (exp1_image != "waldo"){
+        showComplexImage();
+    } else{
+        showSimpleImage();
+    }
+}
+
+function showComplexImage(){
+    // complex image (waldo)
+    exp2_image = comple_image;
+    var imageURL = "images/" + comple_image + ".jpg";
+    document.getElementById("img").src = imageURL;
+    restart();
+}
+
+function showSimpleImage(){
+    // simple image (landscape)
+    exp2_image = simple_image;
+    var imageURL = "images/" + simple_image + ".jpg";
+    document.getElementById("img").src = imageURL;
+    if (exp1_image == simple_image){
+        endExperiment2();
+    } else{
+        restart();
+    }
+}
+
+function endExperiment2(){
+    document.getElementById("container").remove();
+    var body = document.getElementsByTagName("body")[0];
+    body.style.overflow = 'visible';
+    body.innerHTML = '<center><iframe id="survey" src="https://docs.google.com/forms/d/1sMUEvdUJfnPY63zt-NS8_7J5vA602dedm8O9eKs_6wQ/viewform?embedded=true" width="760" height="1750" frameborder="0" marginheight="0" marginwidth="0">Loading...</iframe></center>';
 }
