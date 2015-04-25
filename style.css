@@ -66,6 +66,24 @@ img{
     margin: 5px;
 }
 
-#survey{
-	
+#imageThumbs{
+	width: 800px;
+	position: absolute;
+	top: 30px;
+	left: 30px;
+	color: white;
+	font-family: 'Trebuchet MS';
+	font-size: 14pt;
+	z-index: 40;
+}
+
+.thumb{
+	width: 360px;
+	height: 216px;
+	border-radius: 8px;
+	z-index: 60px; 
+}
+
+#selectLabel{
+	font-size: 150%;
 }
