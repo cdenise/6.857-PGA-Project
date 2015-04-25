@@ -1,0 +1,7 @@
+chrome://flags/#overscroll-history-navigation
+changed from enabled to disabled
+
+multi-touch web development: http://www.html5rocks.com/en/mobile/touch/
+
+Code used:
+http://stackoverflow.com/questions/2368784/draw-on-html5-canvas-using-a-mouse

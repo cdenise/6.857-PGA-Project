@@ -1,0 +1,67 @@
+body {overflow: hidden; }
+
+#container{
+    display:inline-block;
+    height: 637px;
+    width: 1190px;
+    margin: 0 auto; 
+    background: black; 
+    position:relative; 
+    border:5px solid black; 
+    border-radius: 10px; 
+    box-shadow: 0 5px 50px #333
+}
+
+#imgCanvas{
+    position:absolute;
+    left: 0px;
+    top: 0px;
+    z-index:20;
+}
+
+#gestureLabel{
+	color: white;
+	font-size: 150%;
+}
+
+button{
+	position: relative;
+	width: 100px;
+	height: 30px;
+    border-radius: 8px; 
+    font-size: 120%;
+    margin: 5px;
+}
+
+#sideBar{
+	position: absolute;
+	left: 1020px;
+	top: 0px;
+	width: 170px;
+	height: 637px;
+	text-align: center;
+	/*background-color: red;*/
+}
+
+#labelDiv{
+	padding: 5px;
+}
+
+img{
+	width: 1020px;
+	height: 637px;
+}
+
+#selectionDiv{
+	position: absolute;
+	left: 1020px;
+	bottom:10px;
+	text-align: center;
+	width: 170px;
+}
+
+#imgSelector{
+	border-radius: 8px; 
+    font-size: 120%;
+    margin: 5px;
+}
