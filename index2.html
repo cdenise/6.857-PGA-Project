@@ -1,0 +1,62 @@
+<!doctype html>
+<head>
+  <title>6.857 Picture Gesture Authentication</title>
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <script src="https://cdn.firebase.com/js/client/2.2.4/firebase.js"></script>
+  <script src="draw2.js"></script>
+  <script src="images.js"></script>
+
+</head>
+<body onload="init()">
+	<div id="container">
+		<img id = "img" src="images/introduction.jpg">
+		<!-- <img id = "img" src="images/waldo.jpg"> -->
+		<canvas id="imgCanvas" width="1020" height="637"></canvas>
+		<div id = "imageThumbs" style="visibility: hidden;">
+			<label id="selectLabel">Select an image:</label>
+			<table cellspacing = 10 cellpadding = 4>
+				<tr>
+					<td><img class = "thumb" src="images/spring_purple_flower.jpg" onclick="clickImg('spring_purple_flower')"></td>
+					<td><img class = "thumb" src="images/waldo.jpg" onclick="clickImg('waldo')"></td>
+					<td><img class = "thumb" src="images/landscape.jpg" onclick="clickImg('landscape')"></td>
+				</tr>
+				<tr>
+					<td>Flowers</td>
+					<td>Waldo</td>
+					<td>Landscape</td>
+				</tr>
+				<tr>
+					<td><img class = "thumb" src="images/cityscape.jpg" onclick="clickImg('cityscape')"></td>
+					<td><img class = "thumb" src="images/animal.jpg" onclick="clickImg('animal')"></td>
+					<td><img class = "thumb" src="images/portrait.jpg" onclick="clickImg('portrait')"></td>
+				</tr>
+				<tr>
+					<td>Cityscape</td>
+					<td>Animals</td>
+					<td>Portrait</td>
+				</tr>
+			</table>
+		</div>
+		<div id="sideBar" style="visibility: hidden;">
+			<div id = "labelDiv">
+				<label id = "gestureLabel"></label></br>
+			</div>
+			<div id = "buttons">
+				<button type="button" onclick="save()" id="saveButton">Save</button>
+				<button type="button" onclick="restart()" id="restartButton">Restart</button>
+			</div>
+		</div>
+		<div id = "selectionDiv">
+			<select id = "imgSelector" onchange = "changeImg()" style="visibility: hidden;">
+				<option value="spring_purple_flower">Flowers</option>
+				<option value="waldo">Waldo</option>
+				<option value="landscape">Landscape</option>
+				<option value="cityscape">Cityscape</option>
+				<option value="animal">Animals</option>
+				<option value="portrait">Portrait</option>
+			</select>
+			<button type="button" onclick="startExperiment0()" id="nextButton">Next</button>
+		</div>
+	</div>
+</body>
+</html>

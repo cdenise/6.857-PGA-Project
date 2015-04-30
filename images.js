@@ -9,6 +9,7 @@ function changeImg(){
 }
 
 function clickImg(image){
+	console.log(image)
 	// remove thumbnail div
 	document.getElementById("imageThumbs").remove();
 	// change selector value
