@@ -239,7 +239,7 @@ function save() {
             var elem2 = document.createElement("button");
             elem2.id = "uploadButton";
             elem2.setAttribute("onclick", "upload()");
-            elem2.innerHTML = "Next";
+            elem2.innerHTML = "Finished";
             parent.appendChild(elem2);
 
         } else{
@@ -339,6 +339,7 @@ function upload(){
                 desciption: gestureStrings
             });
             alert("Thanks for completing our experiment!")
+            document.getElementById("uploadButton").disabled = true;
         //})(gestures, gestureStrings);
     
 }
