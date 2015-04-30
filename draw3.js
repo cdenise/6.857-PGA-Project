@@ -20,15 +20,13 @@ var canvas, ctx = false,
 var color = "gray",
     radius = 5,
     offset = 12,
-    expNum = 0,
+    expNum = 1,
     userID,
-    exp0_image,
     exp1_image,
     exp2_image;
 
 var comple_image = "waldo",
     simple_image = "animal";
-    shoulder_image = "cityscape"
 
 function init() {
     // update gesture # label
@@ -243,6 +241,7 @@ function save() {
             elem2.setAttribute("onclick", "upload()");
             elem2.innerHTML = "Next";
             parent.appendChild(elem2);
+
         } else{
             // ask for next gesture
             gestureNum ++;
@@ -326,159 +325,45 @@ function displayGestures(){
 }
 
 function upload(){
-    console.log(expNum)
-    if (expNum == 0){
-        console.log("EXPERIMENT 0")
-        expNum ++;
-        (function (gestures, gestureStrings){
+    // experiment 1
+
+             var imgName = document.getElementById("imgSelector").value
+            console.log(document.getElementById("imgSelector"))
+            console.log(gestures, gestureStrings)
+        //(function (gestures, gestureStrings){
             // save to database
-            var idRef = myFirebaseRef.push({
-                experiment: 0,
-                image: shoulder_image,
+            myFirebaseRef.push({
+                experiment: 3,
+                image: imgName,
                 gestures: gestures,
                 desciption: gestureStrings
             });
-            userID = idRef.key();
-        })(gestures, gestureStrings);
-        restart();
-        // hide sidebar
-        document.getElementById("sideBar").style.visibility = 'hidden';
-        // remove image selector
-        //document.getElementById("imgSelector").remove();
-        // display experiment 2 instructions
-        var imageURL = "images/instructions1.jpg";
-        document.getElementById("img").src = imageURL;
-        // add start button
-        var parent = document.getElementById("selectionDiv");
-        // add save button
-        var start = document.createElement("button");
-        start.setAttribute("onclick", "startExperiment1()");
-        start.innerHTML = "Start";
-        start.id = "startButton";
-        parent.appendChild(start);
-    }
-    // experiment 1
-    else if (expNum == 1){
-        expNum ++;
-        exp1_image = document.getElementById("imgSelector").value;
-        (function (gestures, gestureStrings){
-            // save to database
-            myFirebaseRef.push({
-                experiment: 1,
-                image: exp1_image,
-                gestures: gestures,
-                desciption: gestureStrings,
-                userID: userID
-            });
-        })(gestures, gestureStrings);
-        // reset values and canvas
-        restart();
-        // hide sidebar
-        document.getElementById("sideBar").style.visibility = 'hidden';
-        // remove image selector
-        document.getElementById("imgSelector").remove();
-        // display experiment 2 instructions
-        var imageURL = "images/instructions2.jpg";
-        document.getElementById("img").src = imageURL;
-        // add start button
-        var parent = document.getElementById("selectionDiv");
-        // add save button
-        var start = document.createElement("button");
-        start.setAttribute("onclick", "startExperiment2()");
-        start.innerHTML = "Start";
-        start.id = "startButton";
-        parent.appendChild(start);
-    } 
-    else if (expNum == 3){
-
-        (function (gestures, gestureStrings){
-            // save to database
-            myFirebaseRef.push({
-                experiment: "0 guess",
-                image: shoulder_image,
-                gestures: gestures,
-                desciption: gestureStrings,
-                userID: userID
-            });
-        })(gestures, gestureStrings);
-
-        endExperiment3();
-    }
-    // experiment 2 - complex
-    else if (exp2_image == comple_image){
-        (function (gestures, gestureStrings){
-            // save to database
-            myFirebaseRef.push({
-                experiment: 2,
-                image: comple_image,
-                gestures: gestures,
-                desciption: gestureStrings,
-                userID: userID
-            });
-        })(gestures, gestureStrings);
-        showSimpleImage();
-    } 
-    // experiment 2 - simple
-    else if (exp2_image == simple_image){
-        expNum ++;
-        (function (gestures, gestureStrings){
-            // save to database
-            myFirebaseRef.push({
-                experiment: 2,
-                image: simple_image,
-                gestures: gestures,
-                desciption: gestureStrings,
-                userID: userID
-            });
-        })(gestures, gestureStrings);
-
-                restart();
-        // hide sidebar
-        document.getElementById("sideBar").style.visibility = 'hidden';
-
-        // display experiment 2 instructions
-        var imageURL = "images/instructions2.jpg";
-        document.getElementById("img").src = imageURL;
-        // add start button
-        var parent = document.getElementById("selectionDiv");
-        // add save button
-        var start = document.createElement("button");
-        start.setAttribute("onclick", "startExperiment3()");
-        start.innerHTML = "Start";
-        start.id = "startButton";
-        parent.appendChild(start);
-
-    }
-}
-
-function startExperiment0(){
-        document.getElementById("sideBar").style.visibility = 'visible';
-        showShoulderImage();
-        current = "experiment0"
+            alert("Thanks for completing our experiment!")
+        //})(gestures, gestureStrings);
+    
 }
 
 function startExperiment1(){
-    /*if (current == "experiment0"){
+    if (current == "introduction"){
         // show experiment 1 instructions
         var imageURL = "images/" + 'instructions1' + ".jpg";
         document.getElementById("img").src = imageURL;
         current = "instructions1";
-    } else{*/
+    } else{
         // show thumbnails
         var imageURL = "images/" + 'background' + ".jpg";
         document.getElementById("img").src = imageURL;
         document.getElementById("imageThumbs").style.visibility = 'visible';
         // remove next button
         document.getElementById("nextButton").remove();
-        document.getElementById("startButton").remove();
-    //} 
+    } 
 }
+
 
 function startExperiment2(){
     // remove start button
-    //document.getElementById("startButton").remove();
+    document.getElementById("startButton").remove();
     // show side bar
-            //document.getElementById("nextButton").remove();
     document.getElementById("sideBar").style.visibility = 'visible';
 
     if (exp1_image != "waldo"){
@@ -488,13 +373,6 @@ function startExperiment2(){
     }
 }
 
-function startExperiment3(){
-        document.getElementById("startButton").remove();
-        // show experiment 0 instructions
-        document.getElementById("sideBar").style.visibility = 'visible';
-        showShoulderImage();
-}
-
 function showComplexImage(){
     // complex image (waldo)
     exp2_image = comple_image;
@@ -502,7 +380,6 @@ function showComplexImage(){
     document.getElementById("img").src = imageURL;
     restart();
 }
-
 
 function showSimpleImage(){
     // simple image (landscape)
@@ -516,14 +393,7 @@ function showSimpleImage(){
     }
 }
 
-function showShoulderImage(){
-    exp0_image = shoulder_image;
-    var imageURL = "images/" + shoulder_image + ".jpg";
-    document.getElementById("img").src = imageURL;
-    restart();
-}
-
-function endExperiment3(){
+function endExperiment2(){
     document.getElementById("container").remove();
     var body = document.getElementsByTagName("body")[0];
     body.style.overflow = 'visible';

@@ -1,0 +1,33 @@
+<!doctype html>
+<head>
+  <title>6.857 Picture Gesture Authentication</title>
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <script src="https://cdn.firebase.com/js/client/2.2.4/firebase.js"></script>
+  <script src="draw3.js"></script>
+  <script src="images.js"></script>
+
+</head>
+<body onload="init()">
+	<div id="container">
+		<img id = "img" src="images/waldo2.jpg">
+		<!-- <img id = "img" src="images/waldo.jpg"> -->
+		<canvas id="imgCanvas" width="1020" height="637"></canvas>
+		<div id="sideBar">
+			<div id = "labelDiv">
+				<label id = "gestureLabel"></label></br>
+			</div>
+			<div id = "buttons">
+				<button type="button" onclick="save()" id="saveButton">Save</button>
+				<button type="button" onclick="restart()" id="restartButton">Restart</button>
+			</div>
+		</div>
+		<div id = "selectionDiv">
+			<select id = "imgSelector" onchange = "changeImg()">
+				<option value="waldo2">Waldo</option>
+				<option value="animals2">Animals</option>
+			</select>
+			<!--<button type="button" onclick="startExperiment0()" id="nextButton">Next</button>-->
+		</div>
+	</div>
+</body>
+</html>
