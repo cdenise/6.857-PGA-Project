@@ -1,58 +1,41 @@
 var myFirebaseRef = new Firebase("https://6857-project-pga.firebaseio.com/");
-var canvas, ctx;
+var canvas, ctx,w,h;
+var divnum = 1;
 myFirebaseRef.on("value", function(snapshot){
 	snapshot.forEach(function(data) {
 		var result = data.val();
 		var image = result.image;
 		var gestures = result.gestures;
-		/*console.log(gestures)
-		var gesture1 = gestures[0];
-		var type1 = gesture1[0];
 
-		if (type1 == "circle"){
-			var x = gesture1[1];
-			var y = gesture1[2];
-			var r = gesture1[3];
-		}*/
+		var div = document.createElement("div")
+		div.id = "div_" + divnum
+		var img = document.createElement("img");
+		img.id = "img_" + divnum
+		var cnv = document.createElement("canvas")
+		cnv.width = 1020
+		cnv.height = 637
+		cnv.style.zIndex = 10
+		cnv.style.position = "absolute"
+		cnv.style.left = 0
+		cnv.style.top = -637
+
+		var ctx = cnv.getContext("2d");
+		div.appendChild(img);
+		div.appendChild(cnv);
+
+		document.getElementById("container2").appendChild(div);
+		divnum += 1
+		//div.appendChild(document.createElement("canvas"))
 
 		if (image && gestures){
-			var base_image = new Image();
-			base_image.setAttribute('crossOrigin', 'anonymous');
-
-			base_image.src = "images/" + image +  ".jpg";
-			//base_image.onload = function(){
-				ctx.drawImage(base_image, 0, 0)
-				displayGestures2(gestures);
-				var image = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");  // here is the most important part because if you dont replace you will get a DOM 18 exception.
-
-				window.location.href=image;
-			//}
-
-			// This is a little trick to get the SRC attribute from the generated <img> screenshot
-			canvas.parentNode.appendChild(screenshot);
-			screenshot.id = "canvasimage";    
-			data = $('#canvasimage').attr('src');
-			canvas.parentNode.removeChild(screenshot);
-
-			console.log(data)
-
+			document.getElementById(img.id).src = "images/" + image + ".jpg"
+			displayGestures2(gestures, cnv, ctx);
 
 		}
-
-
     });
 })
 
-function init2() {
-    // create canvas
-    canvas = document.getElementById('imgCanvas');
-    ctx = canvas.getContext("2d");
-    w = canvas.width;
-    h = canvas.height;
-}
-
-function displayGestures2(gestures){
-    erase();
+function displayGestures2(gestures, cnv, ctx){
     var col = ""
     for (var i = 0; i < 3; i++){
     	if (i == 0){
@@ -68,10 +51,10 @@ function displayGestures2(gestures){
             var x = gestures[i][1];
             var y = gestures[i][2];
             var r = gestures[i][3];
-            //var col = gestures[i][4];
+            var col = gestures[i][4];
             var width = gestures[i][5];
             var fill = gestures[i][6];
-            drawCircle(x, y, r, col, width, fill);
+            drawCircle(x, y, r, col, width, fill, ctx);
         } else{
             var x1 = gestures[i][1];
             var y1 = gestures[i][2];
@@ -79,7 +62,30 @@ function displayGestures2(gestures){
             var y2 = gestures[i][4];
             //var col = gestures[i][5];
             var width = gestures[i][6];
-            drawLine(x1, y1, x2, y2, col, width);
+            drawLine(x1, y1, x2, y2, col, width, ctx);
         }
     }
+}
+
+function drawLine(x1, y1, x2, y2, col, width, ctx){
+    ctx.beginPath();
+    ctx.moveTo(x1, y1);
+    ctx.lineTo(x2, y2);
+    ctx.lineWidth = width;
+    ctx.strokeStyle = col;
+    ctx.stroke();
+    ctx.closePath();
+}
+
+function drawCircle(x, y, r, col, width, fill, ctx){
+    ctx.beginPath();
+    ctx.arc(x, y, r, 0, 2 * Math.PI, false);
+    if (fill){
+        ctx.fillStyle = col;
+        ctx.fill();
+    }
+    ctx.strokeStyle = col;
+    ctx.lineWidth = width;
+    ctx.stroke();
+    ctx.closePath();
 }
