@@ -76,6 +76,37 @@ function drawLine2(x1, y1, x2, y2, col, width, ctx){
     ctx.strokeStyle = col;
     ctx.stroke();
     ctx.closePath();
+
+    var dx = x2 - x1;
+    var dy = y2 - y1;
+
+    var length = Math.sqrt(dx * dx + dy * dy);
+
+    // x and y coordinates if arrow head has length 1
+    var unitX = dx / length;
+    var unitY = dy/ length;
+
+    var arrowSize = 25;
+
+    // coordinates for first arrowhead point
+    var point1X = x2 - unitX * arrowSize - unitY * arrowSize;
+    var point1Y = y2 - unitY * arrowSize + unitX * arrowSize;
+
+    // coordinates for second arrowhead point
+    var point2X = x2 - unitX * arrowSize + unitY * arrowSize;
+    var point2Y = y2 - unitY * arrowSize - unitX * arrowSize;
+
+    // draw line from center of first square to second square
+    ctx.beginPath();
+    ctx.moveTo(x1, y1);
+    ctx.lineTo(x2, y2);
+
+            // draw arrow head
+    ctx.moveTo(point1X, point1Y);
+    ctx.lineTo(x2, y2);
+    ctx.lineTo(point2X, point2Y);
+
+    ctx.stroke();
 }
 
 function drawCircle2(x, y, r, col, width, fill, ctx){
