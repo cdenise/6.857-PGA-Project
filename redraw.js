@@ -47,14 +47,15 @@ function displayGestures2(gestures, cnv, ctx){
     	else {
     		col = "blue";
     	}
+
         if (gestures[i][0] == 'circle'){
             var x = gestures[i][1];
             var y = gestures[i][2];
             var r = gestures[i][3];
-            var col = gestures[i][4];
+            //var col = gestures[i][4];
             var width = gestures[i][5];
             var fill = gestures[i][6];
-            drawCircle(x, y, r, col, width, fill, ctx);
+            drawCircle2(x, y, r, col, 10, fill, ctx);
         } else{
             var x1 = gestures[i][1];
             var y1 = gestures[i][2];
@@ -62,12 +63,12 @@ function displayGestures2(gestures, cnv, ctx){
             var y2 = gestures[i][4];
             //var col = gestures[i][5];
             var width = gestures[i][6];
-            drawLine(x1, y1, x2, y2, col, width, ctx);
+            drawLine2(x1, y1, x2, y2, col, width, ctx);
         }
     }
 }
 
-function drawLine(x1, y1, x2, y2, col, width, ctx){
+function drawLine2(x1, y1, x2, y2, col, width, ctx){
     ctx.beginPath();
     ctx.moveTo(x1, y1);
     ctx.lineTo(x2, y2);
@@ -77,7 +78,7 @@ function drawLine(x1, y1, x2, y2, col, width, ctx){
     ctx.closePath();
 }
 
-function drawCircle(x, y, r, col, width, fill, ctx){
+function drawCircle2(x, y, r, col, width, fill, ctx){
     ctx.beginPath();
     ctx.arc(x, y, r, 0, 2 * Math.PI, false);
     if (fill){
