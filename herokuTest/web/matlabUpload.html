@@ -1,0 +1,46 @@
+<!doctype html>
+<head>
+  <title>6.857 Picture Gesture Authentication</title>
+  <script src="https://cdn.firebase.com/js/client/2.2.4/firebase.js"></script>
+  <script> var FirebaseUpload = new Firebase("https://6857-project-pga.firebaseio.com/uploadedImages");</script>
+ </head>
+<body>
+<h2>Check if your picture is good for PGA!</h2>
+
+<h4>Select an image you would like to upload.</h4>
+
+<!--<form id="file-form" action="handler.php" method="POST">
+  <input type="file" id="file-select" name="photos[]"/>
+  <button type="submit" id="upload-button">Upload</button>
+</form>-->
+<form id="uploadbanner" enctype="multipart/form-data" method="post" action="index.php">
+   <input id="fileupload" name="myfile" type="file" />
+   <input type="submit" value="Upload" id="submit" />
+</form>
+<script>
+var form = document.getElementById('uploadbanner');
+var fileSelect = document.getElementById('fileupload');
+var uploadButton = document.getElementById('submit');
+
+var oShell = new ActiveXObject("Shell.Application");
+
+form.onsubmit = function(event) {
+var files = fileSelect.files;
+  //var formData = new FormData();
+  var file = files[0];
+
+  console.log(file.name);
+  console.log(file);
+//FirebaseUpload.push({
+
+  //              image: file
+  //          });
+}
+ //uploadButton.innerHTML = 'Uploading...';
+  
+</script>
+
+
+
+</body>
+</html>
