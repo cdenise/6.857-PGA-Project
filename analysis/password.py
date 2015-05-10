@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 from firebase import firebase
 
 # Get results
