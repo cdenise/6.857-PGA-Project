@@ -33,14 +33,20 @@ print
 print 'p2_guess'
 print p2_guess
 # saves and print results
-f = open('password.txt', 'w')
-f.write('password 1\n')
+f1 = open('password1.txt', 'w')
+f1.write('password 1')
 for i in range(len(p1)):
-    f.write(str(i) + '\t\t' + p1[i] + '\t\t' + p1_guess[i] + '\n')
-f.write('\n\npassword2\n')
+    f1.write('\n' + str(i) + '\t\t' + p1[i] + '\t\t' + p1_guess[i])
+f1.close()
+
+f2 = open('password2.txt', 'w')
+f2.write('password 2')
 for i in range(len(p2)):
-    f.write(str(i) + '\t\t' + p2[i] + '\t\t' + p2_guess[i] + '\n')
-f.close()
+    f2.write('\n' + str(i) + '\t\t' + p2[i] + '\t\t' + p2_guess[i])
+
+f2.close()
+
+
 
 
 
