@@ -1,13 +1,17 @@
 <?php
-error_reporting(E_ALL);
-ini_set('display_errors',1);
-sys_get_temp_dir();
+//error_reporting(E_ALL);
+//ini_set('display_errors',1);
+//sys_get_temp_dir();
 $target_dir = "/Users/srinidhi/Documents/MIT\ Junior/6.857/pga/herokuTest/web/uploadedImages/";
 $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
 $uploadOk = 1;
 $imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
-echo 'test';
-echo $target_file;
+return exec('C:\imageDetection.exe $target_file');
+//return 'Hello';
+
+//echo 'test';
+//echo $target_file;
+//echo $_FILES["fileToUpload"]["name"];
 // Check if image file is a actual image or fake image
 if(isset($_POST["submit"])) {
 	echo "Inside SUBMIT";
@@ -44,7 +48,7 @@ if ($uploadOk == 0) {
     if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
         echo "The file ". basename( $_FILES["fileToUpload"]["name"]). " has been uploaded.";
     } else {
-        echo "Sorry, there was an error uploading your file.";
+        //echo "Sorry, there was an error uploading your file.";
     }
 }
 ?>
