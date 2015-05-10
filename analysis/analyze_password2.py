@@ -1,10 +1,10 @@
 import jaro
 
-with open("password1_analysis.txt", "w") as writer:
+with open("password2_analysis.txt", "w") as writer:
     writer.write("actual, guess, jaro-winkler\n")
     total = 0.0
     number = 0.0
-    with open("password1.txt", "r") as f:
+    with open("password2.txt", "r") as f:
         f.readline()
         for line in f.readlines():
             parts = line.split()
