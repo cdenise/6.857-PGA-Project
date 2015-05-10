@@ -19,6 +19,13 @@ body {overflow: hidden; }
     z-index:20;
 }
 
+#imgCanvas2{
+    position:absolute;
+    left: 0px;
+    top: -637;
+    z-index:20;
+}
+
 #gestureLabel{
 	color: white;
 	font-size: 150%;
