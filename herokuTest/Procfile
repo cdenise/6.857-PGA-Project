@@ -1,2 +1,3 @@
 web: vendor/bin/heroku-php-apache2 web/
 file_uploads = On
+max_execution_time = 30000

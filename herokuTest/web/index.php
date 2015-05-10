@@ -13,11 +13,24 @@ $app->register(new Silex\Provider\MonologServiceProvider(), array(
 $app->get('/', function() use($app) {
   $app['monolog']->addDebug('logging output.');
 echo "<h4> Select an image you would like to upload.</h4>"; 
-echo '<form id="uploadbanner" enctype="multipart/form-data" method="post" action="#">
-   <input id="fileupload" name="myfile" type="file" />
+ echo '<form id="uploadbanner" enctype="multipart/form-data" method="post" action="upload.php">
+   <input id="fileToUpload" name="fileToUpload" type="file" />
    <input type="submit" value="Upload" id="submit" />
 </form>';
-echo getcwd();
+
+echo '<script type=\"text/javascript\"> 
+console.log("before n here fadfadf");
+var fileSelect = document.getElementById("fileToUpload");
+console.log("in here fadfadf");
+form.onsubmit = function(event) {
+var files = fileSelect.files;
+console.log("in here fadfadf1");
+var file = files[0];
+console.log("in here fadfadf12");
+console.log(file.name);
+}
+</script>';
+//exec("C:\wamp\www\web_dev\test\my_program.exe $argument");
 return 'Hello';
 
 });
