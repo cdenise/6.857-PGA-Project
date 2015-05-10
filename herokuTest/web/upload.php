@@ -1,13 +1,16 @@
 <?php
-//error_reporting(E_ALL);
-//ini_set('display_errors',1);
+error_reporting(E_ALL);
+ini_set('display_errors',1);
 //sys_get_temp_dir();
 $target_dir = "/Users/srinidhi/Documents/MIT\ Junior/6.857/pga/herokuTest/web/uploadedImages/";
 $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
 $uploadOk = 1;
 $imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
-return exec('C:\imageDetection.exe $target_file');
-//return 'Hello';
+echo 'right before exec';
+exec('C:\test.exe', $output);
+echo 'right after exec';
+var_dump($output);
+return 'Hello';
 
 //echo 'test';
 //echo $target_file;
@@ -41,7 +44,7 @@ if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg
     $uploadOk = 0;
 }
 // Check if $uploadOk is set to 0 by an error
-if ($uploadOk == 0) {
+/*if ($uploadOk == 0) {
     echo "Sorry, your file was not uploaded.";
 // if everything is ok, try to upload file
 } else {
@@ -50,5 +53,5 @@ if ($uploadOk == 0) {
     } else {
         //echo "Sorry, there was an error uploading your file.";
     }
-}
+}*/
 ?>
