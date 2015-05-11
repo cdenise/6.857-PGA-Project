@@ -22,6 +22,7 @@ echo '<script type=\"text/javascript\">
 console.log("before n here fadfadf");
 var fileSelect = document.getElementById("fileToUpload");
 console.log("in here fadfadf");
+
 form.onsubmit = function(event) {
 var files = fileSelect.files;
 console.log("in here fadfadf1");
@@ -30,7 +31,7 @@ console.log("in here fadfadf12");
 console.log(file.name);
 }
 </script>';
-//exec("C:\wamp\www\web_dev\test\my_program.exe $argument");
+//exec("C:\imageDetection.exe $argument");
 return 'Hello';
 
 });
