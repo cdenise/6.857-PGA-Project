@@ -6,5 +6,4 @@ numFeatures = regions.length;
 fileID = fopen('numRegions.txt', 'w');
 fprintf(fileID, '%d\n', numFeatures);
 fclose(fileID);
-which('numRegions.txt')
 end
