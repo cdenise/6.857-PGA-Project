@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Image Detection</title>
+		<script src="https://code.jquery.com/jquery-2.1.0.min.js"></script>
+		<script src="imageDetection.js"></script>
+	</head>
+
+	<body>
+		<h1>Select an image you would like to upload.</h1>
+		<input type="file" accept='image/*' id="i_file"> 
+		<input type="button" id="i_submit" value="Upload" onclick="Upload()">
+		<br/>
+		<label id = "numRegions"></label>
+		<br/>
+		<img id = "img" src = "" width="500" style="display:none;"/>
+		<div id = "colorBar"></div>
+	</body>
+
+</html>
