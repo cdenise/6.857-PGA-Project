@@ -1,0 +1,117 @@
+body{
+	font-family: Rockwell;
+	background-color: oldlace;
+}
+
+#img{
+	border-radius: 8px; 
+}
+
+#passwordStrength
+{
+	height:15px;
+	display:block;
+	float:left;	
+}
+
+#barLabelDiv{
+	/*position: relative;*/
+	margin-left: 280px;
+	padding-top: 5px;
+}
+
+#temp{
+	float: left;
+}
+
+#colorBar{
+	/*position: absolute;*/
+}
+
+#i_submit{
+	width: 100px;
+	height: 30px;
+    font-size: 120%;
+}
+
+#i_file{
+	font-size: 120%;
+	height: 30px;
+}
+
+.strength0
+{
+	width:250px;
+	background:#cccccc;
+}
+
+.strength1
+{
+	width:50px;
+	background:#ff0000;
+}
+
+.strength2
+{
+	width:100px;	
+	background:#ff5f5f;
+}
+
+.strength3
+{
+	width:150px;
+	background:#56e500;
+}
+
+.strength4
+{
+	background:#4dcd00;
+	width:200px;
+	
+}
+
+.strength5
+{
+	background:#399800;
+	width:250px;
+}
+#temp {
+height: 10px;  /* Can be anything */
+	width: 250px;
+	background: #555;
+	-moz-border-radius: 25px;
+	-webkit-border-radius: 25px;
+	border-radius: 25px;
+	padding: 10px;
+	box-shadow: inset 0 -1px 1px rgba(255,255,255,0.3);	
+}
+
+#bar {
+display: block;
+  height: 10px;
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
+  background-color: rgb(43,194,83);
+  background-image: linear-gradient(
+    center bottom,
+    rgb(43,194,83) 37%,
+    rgb(84,240,84) 69%
+  );
+  box-shadow: 
+    inset 0 2px 9px  rgba(255,255,255,0.3),
+    inset 0 -2px 6px rgba(0,0,0,0.4);
+  position: relative;
+  overflow: hidden;
+
+}
+
+.orange > span {
+  background-color: #f1a165;
+  background-image: linear-gradient(to bottom, #f1a165, #f36d0a);
+}
+.red > span {
+  background-color: #FF0000;
+  background-image: linear-gradient(to bottom, #ff0000, #f36d0a);
+}
