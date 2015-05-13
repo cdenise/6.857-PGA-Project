@@ -1,4 +1,4 @@
-import jaro
+import difflib
 
 with open("password2_analysis.txt", "w") as writer:
     writer.write("actual, guess, jaro-winkler\n")
@@ -9,10 +9,11 @@ with open("password2_analysis.txt", "w") as writer:
         for line in f.readlines():
             parts = line.split()
             actual = parts[1]
-            guess = parts[2]
+            guess = ' '.join(parts[2:])
 
             #edit_distance = editdistance.eval(actual, guess)
-            jaro_winkler = jaro.jaro_winkler_metric(unicode(actual), unicode(guess))
+            #jaro_winkler = jaro.jaro_winkler_metric(unicode(actual), unicode(guess))
+            jaro_winkler = difflib.ndiff(actual, guess)
             total += jaro_winkler
             number += 1
             writer.write(actual + ", " + guess + ", " + str(jaro_winkler) + "\n")
