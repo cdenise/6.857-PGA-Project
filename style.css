@@ -1,4 +1,7 @@
-body {overflow: hidden; }
+body {
+	overflow: hidden; 
+	background-color: #F5F5DC;
+	}
 
 #container{
     display:inline-block;

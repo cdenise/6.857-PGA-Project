@@ -134,73 +134,118 @@ for entry in results.values():
 ##    f2.write('\n')
 ##f2.close()
 
-### Analysis for Animals2
-##print '**************************************************'
-##print 'Animals2'
-##print 'gesture 1'
-##print '**************************************************'
-##correct_type = animals2['answer'][1-1]['type']
-##print 'correct_type:', correct_type
-##x_c, y_c = animals2['answer'][1-1]['center']
-##correct_type_count = 0
-##total_error_c = 0
-##total_error_r = 0
-##for j in animals2['gesture1']:
-##    if j['type'] == correct_type:
-##        correct_type_count += 1
-##        x, y = j['center']
-##        total_error_c += math.sqrt((x-x_c)**2 + (y-y_c)**2)
-##        total_error_r += j['radius']
-##print 'total count:', len(animals2['gesture2'])
-##print 'correct_type_count:', correct_type_count
-##print 'correct_type_rate: ' + str(correct_type_count / float(len(animals2['gesture2'])) * 100) + "%"
-##print 'average_error (center):', total_error_c / correct_type_count
-##print 'average_error (radius):', total_error_r / correct_type_count
-##print
-##print
-##print '**************************************************'
-##print 'Animals2'
-##print 'gesture 2'
-##print '**************************************************'
-##correct_type = animals2['answer'][2-1]['type']
-##print 'correct_type:', correct_type
-##x_c, y_c = animals2['answer'][2-1]['center']
-##correct_type_count = 0
-##total_error = 0
-##for j in animals2['gesture2']:
-##    if j['type'] == correct_type:
-##        correct_type_count += 1
-##        x, y = j['center']
-##        total_error += math.sqrt((x-x_c)**2 + (y-y_c)**2)
-##print 'total count:', len(animals2['gesture2'])
-##print 'correct_type_count:', correct_type_count
-##print 'correct_type_rate: ' + str(correct_type_count / float(len(animals2['gesture2'])) * 100) + "%"
-##print 'average_error:', total_error / correct_type_count
-##print
-##print
-##print '**************************************************'
-##print 'Animals2'
-##print 'gesture 3'
-##print '**************************************************'
-##correct_type = animals2['answer'][3-1]['type']
-##print 'correct_type:', correct_type
-##x_c, y_c = animals2['answer'][3-1]['center']
-##correct_type_count = 0
-##total_error_c = 0
-##total_error_r = 0
-##for j in animals2['gesture3']:
-##    if j['type'] == correct_type:
-##        correct_type_count += 1
-##        x, y = j['center']
-##        total_error_c += math.sqrt((x-x_c)**2 + (y-y_c)**2)
-##        total_error_r += j['radius']
-##print 'total count:', len(animals2['gesture2'])
-##print 'correct_type_count:', correct_type_count
-##print 'correct_type_rate: ' + str(correct_type_count / float(len(animals2['gesture2'])) * 100) + "%"
-##print 'average_error (center):', total_error_c / correct_type_count
-##print 'average_error (radius):', total_error_r / correct_type_count
-##print
-##print
+def compare(point1, point2):
+    # grid width = 10.2; assuming 100 grids along longer side
+    w = 10.2
+    x_diff = abs(math.floor(point1[0] / w) - math.floor(point2[0] / w))
+    y_diff = abs(math.floor(point1[1] / w) - math.floor(point2[1] / w))
+    return (x_diff <= 2 and y_diff <=2) or (x_diff <= 1 and y_diff <= 3) or (x_diff <= 3 and y_diff <= 1)
+        
+    
+# Analysis for Animals2
+
+# radius difference tolerance
+dr = 10.2 * 3
+
+print '**************************************************'
+print 'Animals2 (Dogs)'
+print 'gesture 1'
+print '**************************************************'
+correct_type = animals2['answer'][1-1]['type']
+print 'correct_type:', correct_type
+print 'users who guessed correctly:'
+x_c, y_c = animals2['answer'][1-1]['center']
+r_c = animals2['answer'][1-1]['radius']
+correct_type_count = 0
+total_error_c = 0
+total_error_r = 0
+correct_count = 0
+c1 = 0
+for j in animals2['gesture1']:
+    c1 += 1
+    if j['type'] == correct_type:
+        correct_type_count += 1
+        x, y = j['center']
+        r = j['radius']
+        if compare((x,y), (x_c, y_c)):
+            if abs(r_c - r) < dr:
+                correct_count += 1
+                print c1
+        total_error_c += math.sqrt((x-x_c)**2 + (y-y_c)**2)
+        total_error_r += abs(r - r_c)
+print 'total count:', len(animals2['gesture2'])
+print 'correct_type_count:', correct_type_count
+print 'correct_type_rate: ' + str(correct_type_count / float(len(animals2['gesture2'])) * 100) + "%"
+print 'correct_count:', correct_count
+print 'correct_rate: ' + str(correct_count / float(len(animals2['gesture2'])) * 100) + "%"
+print 'average_error (center):', total_error_c / correct_type_count
+print 'average_error (radius):', total_error_r / correct_type_count
+print
+print
+print '**************************************************'
+print 'Animals2 (Dogs)'
+print 'gesture 2'
+print '**************************************************'
+correct_type = animals2['answer'][2-1]['type']
+print 'correct_type:', correct_type
+print 'users who guessed correctly:'
+x_c, y_c = animals2['answer'][2-1]['center']
+correct_type_count = 0
+correct_count = 0
+total_error = 0
+c2 = 0
+for j in animals2['gesture2']:
+    c2 += 1
+    if j['type'] == correct_type:
+        correct_type_count += 1
+        x, y = j['center']
+        if compare((x,y), (x_c, y_c)):
+            correct_count += 1
+            print c2
+        total_error += math.sqrt((x-x_c)**2 + (y-y_c)**2)
+print 'total count:', len(animals2['gesture2'])
+print 'correct_type_count:', correct_type_count
+print 'correct_type_rate: ' + str(correct_type_count / float(len(animals2['gesture2'])) * 100) + "%"
+print 'correct_count:', correct_count
+print 'correct_rate: ' + str(correct_count / float(len(animals2['gesture2'])) * 100) + "%"
+print 'average_error:', total_error / correct_type_count
+print
+print
+print '**************************************************'
+print 'Animals2 (Dogs)'
+print 'gesture 3'
+print '**************************************************'
+correct_type = animals2['answer'][3-1]['type']
+print 'correct_type:', correct_type
+print 'users who guessed correctly:'
+x_c, y_c = animals2['answer'][3-1]['center']
+r_c = animals2['answer'][3-1]['radius']
+correct_type_count = 0
+correct_count = 0
+total_error_c = 0
+total_error_r = 0
+c3 = 0
+for j in animals2['gesture3']:
+    c3 += 1
+    if j['type'] == correct_type:
+        correct_type_count += 1
+        x, y = j['center']
+        r = j['radius']
+        if compare((x,y), (x_c, y_c)):
+            if abs(r_c - r) < dr:
+                correct_count += 1
+                print c3
+        total_error_c += math.sqrt((x-x_c)**2 + (y-y_c)**2)
+        total_error_r += abs(r - r_c)
+print 'total count:', len(animals2['gesture2'])
+print 'correct_type_count:', correct_type_count
+print 'correct_type_rate: ' + str(correct_type_count / float(len(animals2['gesture2'])) * 100) + "%"
+print 'correct_count:', correct_count
+print 'correct_rate: ' + str(correct_count / float(len(animals2['gesture2'])) * 100) + "%"
+print 'average_error (center):', total_error_c / correct_type_count
+print 'average_error (radius):', total_error_r / correct_type_count
+print
+print
 
 # Analysis for Waldo2
 print '**************************************************'
@@ -209,21 +254,28 @@ print 'gesture 1'
 print '**************************************************'
 correct_type = waldo2['answer'][1-1]['type']
 print 'correct_type:', correct_type
+print 'users who guessed correctly:'
 x_c, y_c = waldo2['answer'][1-1]['center']
+print x_c, y_c
 correct_type_count = 0
+correct_count = 0
 total_error_c = 0
-##total_error_r = 0
+c1 = 0
 for j in waldo2['gesture1']:
+    c1 += 1
     if j['type'] == correct_type:
         correct_type_count += 1
         x, y = j['center']
+        if compare((x,y), (x_c, y_c)):
+            correct_count += 1
+            print c1
         total_error_c += math.sqrt((x-x_c)**2 + (y-y_c)**2)
-##        total_error_r += j['radius']
 print 'total count:', len(waldo2['gesture2'])
 print 'correct_type_count:', correct_type_count
 print 'correct_type_rate: ' + str(correct_type_count / float(len(waldo2['gesture2'])) * 100) + "%"
+print 'correct_count:', correct_count
+print 'correct_rate: ' + str(correct_count / float(len(waldo2['gesture2'])) * 100) + "%"
 print 'average_error (center):', total_error_c / correct_type_count
-##print 'average_error (radius):', total_error_r / correct_type_count
 print
 print
 print '**************************************************'
@@ -232,19 +284,29 @@ print 'gesture 2'
 print '**************************************************'
 correct_type = waldo2['answer'][2-1]['type']
 print 'correct_type:', correct_type
+print 'users who guessed correctly:'
 x_s, y_s = waldo2['answer'][2-1]['start']
 x_e, y_e = waldo2['answer'][2-1]['end']
 correct_type_count = 0
+correct_count = 0
 total_error_s = 0
 total_error_e = 0
+c2 = 0
 for j in waldo2['gesture2']:
+    c2 += 1
     if j['type'] == correct_type:
         correct_type_count += 1
+        if compare((j['start'][0],j['start'][1]), (x_s, y_s)):
+            if compare((j['end'][0],j['end'][1]), (x_e, y_e)):
+                correct_count += 1
+                print c2
         total_error_s += math.sqrt((j['start'][0] - x_s)**2 + (j['start'][1]-y_s)**2)
         total_error_e += math.sqrt((j['end'][0] - x_e)**2 + (j['end'][1]-y_e)**2)
 print 'total count:', len(waldo2['gesture2'])
 print 'correct_type_count:', correct_type_count
 print 'correct_type_rate: ' + str(correct_type_count / float(len(waldo2['gesture2'])) * 100) + "%"
+print 'correct_count:', correct_count
+print 'correct_rate: ' + str(correct_count / float(len(waldo2['gesture2'])) * 100) + "%"
 print 'average_error (start):', total_error_s / correct_type_count
 print 'average_error (end):', total_error_e / correct_type_count
 print
@@ -255,19 +317,31 @@ print 'gesture 3'
 print '**************************************************'
 correct_type = waldo2['answer'][3-1]['type']
 print 'correct_type:', correct_type
+print 'users who guessed correctly:'
 x_c, y_c = waldo2['answer'][3-1]['center']
+r_c = waldo2['answer'][3-1]['radius']
 correct_type_count = 0
+correct_count = 0
 total_error_c = 0
 total_error_r = 0
+c3 = 0
 for j in waldo2['gesture3']:
+    c3 += 1
     if j['type'] == correct_type:
         correct_type_count += 1
         x, y = j['center']
+        r = j['radius']
+        if compare((x,y), (x_c, y_c)):
+            if abs(r_c - r) < dr:
+                correct_count += 1
+                print c3
         total_error_c += math.sqrt((x-x_c)**2 + (y-y_c)**2)
-        total_error_r += j['radius']
+        total_error_r += abs(r - r_c)
 print 'total count:', len(waldo2['gesture2'])
 print 'correct_type_count:', correct_type_count
 print 'correct_type_rate: ' + str(correct_type_count / float(len(waldo2['gesture2'])) * 100) + "%"
+print 'correct_count:', correct_count
+print 'correct_rate: ' + str(correct_count / float(len(waldo2['gesture2'])) * 100) + "%"
 print 'average_error (center):', total_error_c / correct_type_count
 print 'average_error (radius):', total_error_r / correct_type_count
 print
