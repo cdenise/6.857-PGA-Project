@@ -256,7 +256,6 @@ correct_type = waldo2['answer'][1-1]['type']
 print 'correct_type:', correct_type
 print 'users who guessed correctly:'
 x_c, y_c = waldo2['answer'][1-1]['center']
-print x_c, y_c
 correct_type_count = 0
 correct_count = 0
 total_error_c = 0
