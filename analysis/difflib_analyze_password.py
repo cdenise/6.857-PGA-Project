@@ -1,7 +1,7 @@
 import difflib
 
-with open("password2_analysis.txt", "w") as writer:
-    writer.write("actual, guess, jaro-winkler\n")
+with open("difflib_password2_analysis.txt", "w") as writer:
+    writer.write("actual, guess, diffLib")
     total = 0.0
     number = 0.0
     with open("password2.txt", "r") as f:
@@ -12,8 +12,7 @@ with open("password2_analysis.txt", "w") as writer:
             guess = ' '.join(parts[2:])
 
             #edit_distance = editdistance.eval(actual, guess)
-            #jaro_winkler = jaro.jaro_winkler_metric(unicode(actual), unicode(guess))
-            jaro_winkler = difflib.ndiff(actual, guess)
+            jaro_winkler = difflib.SequenceMatcher(None, unicode(actual), unicode(guess)).ratio()
             total += jaro_winkler
             number += 1
             writer.write(actual + ", " + guess + ", " + str(jaro_winkler) + "\n")
